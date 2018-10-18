@@ -23,7 +23,7 @@ app.use('/login', loginRouter)
 app.use('/rooms', roomsRouter)
 
 app.get('/running', (req, res) => {
-    return res.render('running')
+    res.render('running')
 })
 
 module.exports = app

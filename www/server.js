@@ -4,10 +4,18 @@ require('dotenv').load()
 const http = require('http').createServer(app)
 const io = require('socket.io')(http)
 const port = process.env.PORT || 3030
-
+const session = require('express-session')
 const connect = require('../src/DB/DB')
 
 const Room = require('../src/models/room')
+
+/* CREATE SESSION */ 
+http.use(session({
+    secret: process.env.SECRET_SESSION,
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: true, maxAge: 10*60*1000 }
+  }))
 
 io.on('connection', socket => {
     socket.on('addRoom', roomName => {
@@ -18,7 +26,6 @@ io.on('connection', socket => {
             .then(() => {
                 io.emit('newRoom', room)
             })
-        console.log('Minha Sala', roomName)
     })
 })
 
