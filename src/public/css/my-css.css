@@ -1,0 +1,43 @@
+.my-rooms {
+    margin-top: 0px;
+    padding-top: 0px;
+}
+.my-rooms li {
+    width: 100%;
+    height: 50px;
+}
+
+.my-rooms li:hover {
+    width: 100%;
+    height: 60px;
+    color: black;
+    background: #f1f1f1;
+    border-left: 3px solid black;
+}
+.my-rooms li a {
+    text-decoration: none;
+    color: black;
+}
+
+#menu-lower-left {
+    right: 0;
+}
+
+.avatar {
+    background: #f1f1f1;
+    border-radius: 50%;
+    height: 120px;
+    width: 120px;
+    position: relative;
+    top: 50px;
+    right: -150px;
+    background-position: center;
+    
+    
+}
+
+.avatar-name {
+    position: relative;
+    top: 69px;
+    right: -175px;
+}
