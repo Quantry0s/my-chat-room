@@ -13,7 +13,8 @@ router.post('/online', (req, res) =>{
 })
 
 router.post('/create', (req, res) =>{
-    loginController.create(req.body.name, req.body.psw)
+    console.log()
+    loginController.create(req.body)
         .then(() => {
             return res.render('rooms')
         })
