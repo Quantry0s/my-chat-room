@@ -9,14 +9,6 @@ const connect = require('../src/DB/DB')
 
 const Room = require('../src/models/room')
 
-/* CREATE SESSION */ 
-http.use(session({
-    secret: process.env.SECRET_SESSION,
-    resave: false,
-    saveUninitialized: true,
-    cookie: { secure: true, maxAge: 10*60*1000 }
-  }))
-
 io.on('connection', socket => {
     socket.on('addRoom', roomName => {
         const room = new Room({
