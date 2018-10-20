@@ -1,15 +1,13 @@
-const UserModel = require('../models/user')
+const RoomsModel = require('../models/room')
 
-const create = ({name, psw}) => {
+const create = ({name}) => {
     
-    let user = new UserModel({
-        name: name,
-        password: psw,
-        avatar: '006-pokemon-5.png'
+    let room = new RoomsModel({
+        name: name
     })
 
     return new Promise((resolve, reject) => {
-        user.save()
+        room.save()
             .then(() => resolve())
             .catch((err) => reject(err))
     })
@@ -18,7 +16,7 @@ const create = ({name, psw}) => {
 const find = () => {
     
     return new Promise((resolve, reject) => {
-        UserModel.find({}, (err, res) => {
+        RoomsModel.find({}, (err, res) => {
             if(err) reject(err)
 
             resolve(res)
@@ -27,10 +25,10 @@ const find = () => {
     
 }
 
-const findByID = (id) => {
+const findByID = ({id}) => {
     
     return new Promise((resolve, reject) => {
-        UserModel.findById(id, (err, res) => {
+        RoomsModel.findById({_id: id}, (err, res) => {
             if(err) reject(err)
 
             resolve(res)

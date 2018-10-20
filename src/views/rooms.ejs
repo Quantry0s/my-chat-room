@@ -1,56 +1,65 @@
 <%- include('header/header') %>
-<div class="mdl-grid">
 
-    <div class="mdl-cell mdl-cell--4-col" style="background: #968080; height: 100vh; border-radius: 15px 0 0 0">
-
-        <div style="background:black; height: 250px; width: 100%; position: relative; border-radius: 15px 0 0 0">
-            <div class="avatar" style="background: url(/img/icon/011-pokemon-10.png) no-repeat; background-position: center; background-size: 90px">
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer">
+    <div class="mdl-layout__drawer">
+        <div style="background:black; height: 250px; width: 100%; position: relative;">
+            <div class="avatar" style="background: url('/img/icon/<%= user.avatar %>') no-repeat; background-position: center; background-size: 90px;">
 
             </div>
             <div class="avatar-name">
-                <span style="color: #ffff">Meu nome</span>
+                <span style="color: #ffff"><%= user.name %></span>
             </div>
-            <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" style="position: relative; right: -340px; top: 81px;"
-                id="show-dialog">
+            <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--mini-fab mdl-button--colored"
+                style="position: relative; right: -175px; top: 89px; z-index: 10;" id="show-dialog">
                 <i class="material-icons">add</i>
             </button>
         </div>
+        <nav class="mdl-navigation">
+            <% rooms.forEach(function(room){ %>
 
-        <section class="">
-            <ul class='mdl-list my-rooms'>
-                <li class="mdl-list__item">
-                    <a href="/rooms">
-                        <span class="mdl-list__item-primary-content">Felicidade</span>
-                    </a>
+            <a class="mdl-navigation__link" href="/rooms/<%= room._id %>">
+                <%= room.name %>
+            </a>
 
-                </li>
-                <li class="mdl-list__item">
-                    <a href="/rooms">
-                        <span class="mdl-list__item-primary-content">Armonia</span>
-                    </a>
-                </li>
-                <li class="mdl-list__item">
-                    <a href="/rooms">
-                        <span class="mdl-list__item-primary-content">Estados</span>
-                    </a>
-                </li>
-            </ul>
-
-        </section>
+            <% }); %>
+        </nav>
     </div>
-    <div class="mdl-cell mdl-cell--8-col" style="background: #f1f1f1; min-height: 500px; height: 100vh;">
-        <div class="mdl-card mdl-shadow--4dp" style="width: 100%; border-radius: 0 15px  0 0">
-            
-                <div class="mdl-card__title">
-                    <span>Meu Nome</span>
+    <main class="mdl-layout__content" style="background: #f1f1f1">
+        <div class="page-content">
+
+            <div style="height: 490px; background: #ffff; margin: 15px;overflow-y: scroll; border-radius: 10px">
+                <div class="mdl-grid">
+                    <div class="mdl-cell mdl-cell--12-col">
+                        <% for(var i=0; i< 250; i++) {%>
+                        <p> Cont =>
+                            <%= i %>
+                        </p>
+                        <% } %>
+                    </div>
                 </div>
-                <div class="mdl-card__supporting-text">
-                    <p>Salve...</p>
+
+
+
+
+                <div style="position: fixed; bottom: 5px; width: 80%; height: 130px; background: black; border-radius: 5px">
+                    <form action="#">
+                        <div class="mdl-grid">
+                            <div class="mdl-cell mdl-cell--10-col">
+                                <div class="mdl-textfield mdl-js-textfield" style="height: 100%; width: 100%; padding-bottom: 17px">
+                                    <textarea style="background: #ffff; border-radius: 5px 5px 0 0" class="mdl-textfield__input"
+                                        type="text" rows="3" id="sample5"></textarea>
+                                    <label class="mdl-textfield__label" for="sample5">Text lines...</label>
+                                </div>
+                            </div>
+                            <div class="mdl-cell mdl-cell--2-col" style="padding: 5px">
+                                <button style="height: 100%; width: 100%;" type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Sair</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
-
-    </div>
+    </main>
 </div>
 
 <dialog class="mdl-dialog">
@@ -68,13 +77,14 @@
     </div>
 </dialog>
 
-<script src="vendor/jquery/jquery.min.js"></script>
-<script src="vendor/popper/popper.min.js"></script>
+<script src="/vendor/jquery/jquery.min.js"></script>
+<script src="/vendor/popper/popper.min.js"></script>
 <script src="/socket.io/socket.io.js"></script>
-<script type="text/javascript">
+<script>
 
     var socket = io()
     socket.on('newRoom', room => {
+        location.reload()
         console.log('Nova Sala ADD: ', room)
     })
     var dialog = document.querySelector('dialog');

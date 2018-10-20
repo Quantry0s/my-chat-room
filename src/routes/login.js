@@ -16,7 +16,7 @@ router.post('/create', (req, res) =>{
     console.log()
     loginController.create(req.body)
         .then(() => {
-            return res.render('rooms')
+            return res.render('teste')
         })
         .catch((err) => {
             console.log('ocorreu um erro', err)

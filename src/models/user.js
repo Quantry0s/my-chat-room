@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const UsuarioShemma = mongoose.Schema({
+const UserShemma = mongoose.Schema({
     name: {
         type: String,
         required: true
@@ -12,7 +12,11 @@ const UsuarioShemma = mongoose.Schema({
     account: {
         type: String,
         default: ['slave']
+    },
+    avatar: {
+        type: String,
+        required: true
     }
 })
 
-module.exports = mongoose.model('Usuarios', UsuarioShemma)
+module.exports = mongoose.model('User', UserShemma)
