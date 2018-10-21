@@ -1,11 +1,11 @@
 const UserModel = require('../models/user')
 
-const create = ({name, psw}) => {
+const create = ({name, password, avatar}) => {
     
     let user = new UserModel({
         name: name,
-        password: psw,
-        avatar: '006-pokemon-5.png'
+        password: password,
+        avatar: avatar
     })
 
     return new Promise((resolve, reject) => {

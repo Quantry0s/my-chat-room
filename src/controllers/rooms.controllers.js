@@ -1,4 +1,16 @@
 const RoomsModel = require('../models/room')
+const MenssageModel = require('../models/menssage')
+
+const createMenssage = (menssage) => {
+    
+    let msn = new MenssageModel(menssage)
+
+    return new Promise((resolve, reject) => {
+        msn.save()
+            .then(() => resolve())
+            .catch((err) => reject(err))
+    })
+}
 
 const create = ({name}) => {
     
@@ -39,6 +51,7 @@ const findByID = ({id}) => {
 
 module.exports = {
     create,
+    createMenssage,
     find,
     findByID
 }

@@ -17,7 +17,7 @@
         <nav class="mdl-navigation">
             <% rooms.forEach(function(room){ %>
 
-            <a class="mdl-navigation__link" href="/rooms/<%= room._id %>">
+            <a class="mdl-navigation__link" href="/rooms?room=<%= room._id %>">
                 <%= room.name %>
             </a>
 
@@ -37,22 +37,21 @@
                         <% } %>
                     </div>
                 </div>
-
-
-
-
+                
                 <div style="position: fixed; bottom: 5px; width: 80%; height: 130px; background: black; border-radius: 5px">
-                    <form action="#">
+                    <form action="/rooms/menssager" method="post">
                         <div class="mdl-grid">
                             <div class="mdl-cell mdl-cell--10-col">
                                 <div class="mdl-textfield mdl-js-textfield" style="height: 100%; width: 100%; padding-bottom: 17px">
                                     <textarea style="background: #ffff; border-radius: 5px 5px 0 0" class="mdl-textfield__input"
-                                        type="text" rows="3" id="sample5"></textarea>
-                                    <label class="mdl-textfield__label" for="sample5">Text lines...</label>
+                                        type="text" rows="3" id="menssage" name="menssage"></textarea>
+                                    <label class="mdl-textfield__label" for="menssage">Text lines...</label>
                                 </div>
                             </div>
                             <div class="mdl-cell mdl-cell--2-col" style="padding: 5px">
-                                <button style="height: 100%; width: 100%;" type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Sair</button>
+                                <button id="buttonSendMsg" style="height: 100%; width: 100%;" type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                                    <strong>Send</strong>
+                                </button>
                             </div>
                         </div>
                     </form>
@@ -71,9 +70,8 @@
         </div>
     </div>
     <div class="mdl-dialog__actions">
-
-        <button type="button" class="mdl-button close">Sair</button>
-        <button type="button" class="mdl-button" id="send">Enviar</button>
+        <button type="button" class="mdl-button close">Exit</button>
+        <button type="button" class="mdl-button" id="send">Send</button>
     </div>
 </dialog>
 
@@ -87,10 +85,11 @@
         location.reload()
         console.log('Nova Sala ADD: ', room)
     })
-    var dialog = document.querySelector('dialog');
-    var showDialogButton = document.querySelector('#show-dialog');
-    var sendRoomName = document.querySelector('#send');
-    var room = document.getElementById('name')
+    const dialog = document.querySelector('dialog');
+    const showDialogButton = document.querySelector('#show-dialog');
+    const sendRoomName = document.querySelector('#send');
+    const room = document.getElementById('name')
+    const sendButtonMsg = document.getElementById('buttonSendMsg')
     if (!dialog.showModal) {
         dialogPolyfill.registerDialog(dialog)
     }
@@ -110,6 +109,28 @@
             console.error('Deu Ruim')
         }
     });
+
+    sendButtonMsg.addEventListener('click', () => {
+        
+        if(typeof(window.location.search.split('=')[1]) !== typeof(undefined)){
+            let msm = {
+                author: '',
+                msg: $('#menssage').val(),
+                idRoom: window.location.search.split('=')[1]
+            }
+            teste(msm)
+            $('#menssage').val('')
+        }
+        else {
+            alert('Escolnha uma sala, para enviar a mensagem')
+        }
+    })
+
+    function teste(menssager) {
+        socket.emit('newMenssager', menssager)
+    }
+
+    
 
 
 

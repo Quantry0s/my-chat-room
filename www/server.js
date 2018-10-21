@@ -1,25 +1,11 @@
 const app = require('../app')
-require('dotenv').load()
+const port = process.env.PORT || 3030
 
 const http = require('http').createServer(app)
-const io = require('socket.io')(http)
-const port = process.env.PORT || 3030
-const session = require('express-session')
+app.io.attach(http)
+
 const connect = require('../src/DB/DB')
-
-const Room = require('../src/models/room')
-
-io.on('connection', socket => {
-    socket.on('addRoom', roomName => {
-        const room = new Room({
-            name: roomName
-        })
-        room.save()
-            .then(() => {
-                io.emit('newRoom', room)
-            })
-    })
-})
+require('dotenv').load()
 
 
 connect(process.env.URL_MONGO_DB, { useNewUrlParser: true })

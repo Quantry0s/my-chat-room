@@ -1,11 +1,11 @@
 const mongoose = require('mongoose')
 
 const MenssagerSchema = mongoose.Schema({
-    name: String,
     author: String,
-    when: Date,
-    type: String,
-    messager: String
+    when: {type: Date, default: Date.now },
+    type: {type: String, default: 'text'},
+    messager: String,
+    idRoom: mongoose.SchemaTypes.ObjectId
 }) 
 
 module.exports = mongoose.model('Mensager', MenssagerSchema)
